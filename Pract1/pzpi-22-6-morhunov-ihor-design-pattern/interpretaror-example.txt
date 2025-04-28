@@ -1,0 +1,55 @@
+class Expression:
+    def interpret(self) -> int:
+        pass
+
+class Number(Expression):
+    def __init__(self, value: int):
+        self.value = value
+
+    def interpret(self) -> int:
+        return self.value
+
+class Add(Expression):
+    def __init__(self, left: Expression, right: Expression):
+        self.left = left
+        self.right = right
+
+    def interpret(self) -> int:
+        return self.left.interpret() + self.right.interpret()
+
+# Використання 
+expr = Add(Number(5), Number(3))  # 5 + 3
+print(expr.interpret())  # Вивід: 8
+
+class Context:
+    def __init__(self, input_text: str):
+        self.input_text = input_text
+
+class Expression:
+    def interpret(self, context: Context) -> bool:
+        pass
+
+class TerminalExpression(Expression):
+    def __init__(self, data: str):
+        self.data = data
+
+    def interpret(self, context: Context) -> bool:
+        return self.data in context.input_text
+
+class OrExpression(Expression):
+    def __init__(self, expr1: Expression, expr2: Expression):
+        self.expr1 = expr1
+        self.expr2 = expr2
+
+    def interpret(self, context: Context) -> bool:
+        return self.expr1.interpret(context) or self.expr2.interpret(context)
+
+# Використання 
+context = Context("Йди наліво або направо")
+left = TerminalExpression("наліво")
+right = TerminalExpression("направо")
+direction = OrExpression(left, right)
+
+print(direction.interpret(context))  # Вивід: True
+
+
