@@ -1,1 +1,331 @@
+Міністерство освіти і науки України
+Харківський національний  університет радіоелектроніки
+
+Кафедра програмної інженерії
+
+
+
+ЗВІТ
+з лабораторної роботи №2
+з дисципліни «Архітектура програмного забезпечення»
+
+
+Виконав:	Перевірив:
+ст. гр. ПЗПІ-22-6	ст. викл. каф. ПІ
+Моргунов І.С.	Сокорчук І.П.
+
+
+
+
+
+
+Харків 2025
+1 ІСТОРІЯ ЗМІН
+Таблиця 1 – Історія змін 
+№	Дата	Версія звіту	Опис змін та виправлень
+1	27.05.2025	0.1	Створено розділ «Історія змін»
+2	27.05.2025	0.1	Створено розділ «Завдання»
+3	27.05.2025	0.1	Створено розділ «Опис виконаної роботи»
+4	27.05.2025	0.1	Створено розділ «Висновки»
+5	27.05.2025	0.1	Доданий Додаток А
+6	27.05.2025	0.1	Доданий Додаток Б
+7	27.05.2025	0.1	Доданий Додаток В
+
+ 
+2 ЗАВДАННЯ
+1.	Розробити серверну / back-end частину програмної системи.
+2.	Проаналізуйте завдання (додаток В).
+3.	Виконайте контрольні завдання.
+4.	Відкрийте створений на попередній лабораторній роботі репозиторій GitHub.
+5.	Створіть у репозиторії директорію Task2 та текстовий файл з описом інженерних рішень у цій частині проєкту.
+6.	Зафіксуйте кожну внесену зміну командою git commit з відповідним коментарем та фіксуйте цією командою усі наступні зміни у проєкті.
+7.	Створіть у директорії Task2 піддиректорію для програмного коду.
+8.	Створіть програмний код, завантажте його у створену піддиректорію, зафіксуйте внесені у репозиторії зміни. Виконайте функціональне тестування.
+9.	Завантажте створений відеозапис тестування YouTube канал для вашого облікового запису в домені @nure.ua
+10.	Створіть для завантаженого запису його хронологічний опис.
+11.	Оформіть звіт у форматі pdf та завантажте його на навчальну платформу https://dl.nure.ua/
+12.	У коментарях до завантаженого звіту вкажіть посилання на відеозапис тестування у вашому каналі YouTube. 
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+Розроблювана програмна система має клієнт-серверну архітектуру. Серверна частина реалізована за допомогою фреймворку Spring Boot, мовою програмування Java.
+В серверній частині використовуються контролери (controllers), в котрих визначається послідовність кроків обробки запитів та шляхи для маршрутизації запитів від сторонніх клієнтів.
+На рисунку Б.1 у додатку Б наведена діаграма розгортання.
+На рисунках Б.2 – Б.5 у додатку Б наведені діаграми прецедентів.
+На рисунку Б.6 у додатку Б наведена ER-модель даних.
+На рисунку Б.7 у додатку Б наведена діаграма діяльності.
+
+Опис бази даних програмної системи наведений в таблицях 1-9.
+Таблиця 1 – Таблиця бази даних “users”
+user_id	INT PRIMARY KEY
+first_name	VARCHAR(50)
+last_name	VARCHAR(50)
+email	VARCHAR(50)
+phone	VARCHAR(15)
+role	VARCHAR(20)
+
+Таблиця 2 – Таблиця бази даних “cars”
+car_id	INT PRIMARY KEY
+license_plate	VARCHAR(20)
+brand	VARCHAR(50)
+model	VARCHAR(50)
+year	INT
+user_id	INT 
+car_type_id	INT
+
+Таблиця 3 – Таблиця бази даних “sensors”
+sensor_id	INT PRIMARY KEY
+sensor_type	VARCHAR(50)
+current_state	VARCHAR(50)
+last_update	DATETIME
+car_id	INT
+
+Таблиця 4 – Таблиця бази даних “car_types”
+car_type_id	INT PRIMARY KEY
+car_type_name	VARCHAR(50)
+min_tire_pressure	INT
+max_tire_pressure	INT
+min_fuel_level	INT
+max_fuel_level	INT
+min_engine_temp	INT
+max_engine_temp	INT
+
+Таблиця 5 – Таблиця бази даних “incidents”
+incident_id	INT PRIMARY KEY
+incident_date	DATETIME
+incident_type	VARCHAR(50)
+description	TEXT
+car_id	INT
+sensor_id	INT
+
+Таблиця 6 – Таблиця бази даних “maintenance”
+Maintenance_id	INT PRIMARY KEY
+maintenance_date	DATE
+maintenance_type	VARCHAR(50)
+description	TEXT
+cost	DECIMAL(10, 2)
+car_id	INT
+
+Таблиця 7 – Таблиця бази даних “policies”
+policy_id	INT PRIMARY KEY
+start_date	DATE
+end_date	DATE
+status	VARCHAR(20)
+price	DECIMAL(10, 2)
+car_id	INT
+Таблиця 8 – Таблиця бази даних “payments”
+payment_id	INT PRIMARY KEY
+payment_date	DATETIME
+payment_method	VARCHAR(50)
+policy_id	INT
+
+Таблиця 9 – Таблиця бази даних “measurements”
+measurement_id	INT
+reading_time	DATETIME
+parameter_type	VARCHAR(50)
+value	DECIMAL(10, 2)
+sensor_id	INT
+
+Таблиця 10 – Специфікація API
+POST	auth/register	Регістрація користувачів
+POST	auth/login	Авторизація користувачів
+GET	users	Отримати всіх юзерів
+PUT	users/{id}	Оновлення даних користувача
+GET	users/{id}	Отримання даних певного користувача
+DELETE	users/{id}	Видалення користувача
+GET	cars	Отримання всіх машин
+GET	cars{id}	Отримання певної машини
+POST	cars	Додавання машини
+PUT	cars/{id}	Оновлення даних певної машини
+DELETE 	cars/{id}	Видалення машини
+GET	cars/search	Пошук машини за назвою
+GET	cars/user/{userId}	Отримати машини певного користувача
+GET	car-types	Отримати всі типи машин
+GET	car-types/{id}	Отримати певний тип машини
+POST	car-types	Додавання типу машини
+PUT 	car-types/{id}	Оновлення даних типу машини
+DELETE	car-types/{id}	Видалення типу машини
+GET	policies	Отримання всіх полісів
+POST	policies	Додавання полісу
+GET 	policies/{id}	Отримати певний поліс
+PUT	policies/{id}	Оновлення певного полісу
+DELETE	policies/{id}	Видалення полісу
+GET	policies/user/{userId}	Отримання полісів певного користувача
+GET	sensors	Отримання всіх сенсорів
+POST	sensors	Додавання сенсору
+GET 	sensors/{id}	Отримання певного сенсору
+PUT	sensors/{id}	Зміна сенсору
+DELETE	sensors/{id}	Видалення сенсору
+GET	sensors/car/{carId}	Отримання сенсорів на певній машині
+GET	maintenance	Отримати всі техобслуховування
+POST	maintenance	Додавання техобслуговування
+GET 	maintenance/{id}	Отримання певного техобслуговування
+PUT	maintenance/{id}	Оновлення даних техобслуговування
+DELETE	maintenance/{id}	Видалення техобслуговування
+GET	maintenance/car/{carId}	Отримання історії техобслуговувань певної машини
+GET	incidents	Отримання всіх інцидентів
+POST	incidents	Додавання нового інциденту
+GET	incidents/{id}	Отримання даних певного інциденту
+PUT 	incidents/{id}	Оновлення даних певного інциденту
+DELETE	incidents/{id}	Видалення інциденту
+GET	incidents/user/{userId}	Отримання інцидентів для певного користувача
+GET	incidents/car/{carId}	Отримання інцидентів для певної машини
+GET	measurements	Отримання всіх замірів
+POST	measurements	Додавання нового заміру
+GET	measurements/{id}	Отримання даних певного заміру
+DELETE	measurements/{id}	Видалення заміру
+GET	payments	Отримання всіх платежів
+POST	payments	Додавання нового платежу
+GET 	payments/{id}	Отримання певного платежу
+GET	payments/user/{userId}	Отримання платежів певного користувача
+DELETE	payments/{id}	Видалення платежу
+ 
+4 ВИСНОВКИ
+Під час виконання лабораторної роботи було розроблено серверну частину програмної системи.
+ 
+ДОДАТОК А
+Відеозапис та хронологічний опис
+
+Відеозапис доповіді на YouTube: https://www.youtube.com/watch?v=G17vDVDHOZw
+
+Хронологічний опис відеозапису:
+0:00 - Тестування регістрації/логіну 
+1:33 - Тестування запитів на взаємодію з інформацією про користувачів 2:30 - Тестування запитів на взаємодію з інформацією про машини 
+4:37 - Тестування запитів на взаємодію з інформацією про поліси 
+6:10 - Тестування математичної бізнес-логіки програми 
+8:01 - Тестування бізнес-логіки з відправкою повідомлень 
+9:15 - Тестування бізнес-логіки пов'язаної з оплатою 
+10:15 - Тестування адміністрування системи 
+11:52 - Тестування резервування бази даних
+
+Посилання на Github: 
+https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/tree/main/Lab2
+
+ДОДАТОК Б
+Графічні матеріали
+ 
+Рисунок Б.1 – UML діаграма розгортання
+ 
+Рисунок Б.2 – UML діаграма прецедентів взаємодії звичайного юзера з системою
+ 
+Рисунок Б.3 – UML діаграма прецедентів взаємодії адміністратора і глобального адміна з системою
+
+ 
+Рисунок Б.4 – UML діаграма прецедентів взаємодії адміністратора бази даних і адміністратора бізнес-логіки з системою
+ 
+Рисунок Б.5 – ER діаграма даних
+
+ 
+Рисунок Б.6 – Діаграма діяльності
+
+
+
+
+
+
+
+
+ДОДАТОК В
+Програмний код
+
+В.1 Математичне обчислення ціни полісу
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/blob/main/Lab2/apz-pzpi-22-6-morhunov-ihor-lab2/src/main/java/org/nure/atark/autoinsure/service/PolicyService.java
+1. public BigDecimal calculatePolicyPrice(String carType, int carAge, int accidentCount, int technicalScore) {
+2.         Optional<Rule> ruleOpt = ruleRepository.findByCarType(carType);
+3.         if (ruleOpt.isEmpty()) {
+4.             throw new IllegalArgumentException("No rule found for car type: " + carType);
+5.         }
+6. 
+7.         Rule rule = ruleOpt.get();
+8.         String formula = rule.getFormula();
+9. 
+10.         BigDecimal basePrice = rule.getBasePrice();
+11.         Map<String, Object> variables = new HashMap<>();
+12.         variables.put("basePrice", basePrice);
+13.         variables.put("carAge", carAge);
+14.         variables.put("accidentCount", accidentCount);
+15. 
+16. 
+17.         int idk = rule.getTechnicalFactorThreshold();
+18.         BigDecimal idk1 = rule.getTechnicalFactorMultiplier();
+19.         if (technicalScore < idk) {
+20.             System.out.println("Using multiplier: " + rule.getTechnicalFactorMultiplier());
+21.             BigDecimal technicalFactor = idk1;
+22.             variables.put("technicalFactor", technicalFactor);
+23.         } else {
+24.             System.out.println("Using default factor: 1");
+25.             BigDecimal technicalFactor = BigDecimal.ONE;
+26.             variables.put("technicalFactor", technicalFactor);
+27.         }
+28. 
+29.         BigDecimal finalPrice;
+30.         try {
+31.             finalPrice = new BigDecimal(MVEL.evalToString(formula, variables));
+32.         } catch (Exception e) {
+33.             throw new IllegalStateException("Error evaluating formula: " + formula, e);
+34.         }
+35. 
+36.         return finalPrice.setScale(2, BigDecimal.ROUND_HALF_UP);
+37.     }
+В.2 Адміністрування користувацьких записів системи
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/blob/main/Lab2/apz-pzpi-22-6-morhunov-ihor-lab2/src/main/java/org/nure/atark/autoinsure/config/SecurityConfig.java
+1. @Bean
+2.     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+3.         http
+4.                 .csrf(csrf -> csrf.disable())
+5.                 .authorizeHttpRequests(auth -> auth
+6.                         .requestMatchers(
+7.                                 "/v3/api-docs/**",
+8.                                 "/swagger-ui/**",
+9.                                 "/swagger-ui.html",
+10.                                 "/actuator/**",
+11.                                 "/api/auth/register",
+12.                                 "/api/auth/login",
+13.                                 "/api/sensors/**",
+14.                                 "/api/payments/**",
+15.                                 "/api/business-logic/**",
+16.                                 "/api/cars/**"
+17.                         ).permitAll()
+18.                         .requestMatchers("api/admin/**").hasAuthority("administrator")
+19.                         .requestMatchers("/api/global/**").hasAuthority("global_admin")
+20.                         .requestMatchers("/api/**").authenticated()
+21.                         .anyRequest().hasAuthority("client")
+22.                 )
+23.                 .userDetailsService(userDetailsService)
+24.                 .httpBasic(Customizer.withDefaults());
+25. 
+26.         return http.build();
+27.     }
+В.3 Резервне копіювання бази даних
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/blob/main/Lab2/apz-pzpi-22-6-morhunov-ihor-lab2/src/main/java/org/nure/atark/autoinsure/service/SettingsService.java
+1. public void createBackup() {
+2.         String backupQuery = "BACKUP DATABASE AutoInsure TO DISK = 'C:\\backups\\AutoInsure_Backup.bak'";
+3.         try (Connection connection = dataSource.getConnection();
+4.              Statement statement = connection.createStatement()) {
+5.             statement.execute(backupQuery);
+6.             System.out.println("Backup created successfully");
+7.         } catch (SQLException e) {
+8.             throw new RuntimeException("Error creating backup", e);
+9.         }
+10.     }
+11. 
+12.     public void restoreSettings(BackupData backupData) {
+13.         String setSingleUserQuery = "ALTER DATABASE AutoInsure SET SINGLE_USER WITH ROLLBACK IMMEDIATE;";
+14.         String restoreQuery = "RESTORE DATABASE AutoInsure FROM DISK = 'C:\\backups\\AutoInsure_Backup.bak' WITH REPLACE";
+15.         String setMultiUserQuery = "ALTER DATABASE AutoInsure SET MULTI_USER;";
+16.         String switchToMasterQuery = "USE master;";
+17. 
+18.         try (Connection connection = dataSource.getConnection();
+19.              Statement statement = connection.createStatement()) {
+20. 
+21.             statement.execute(switchToMasterQuery);
+22.             statement.execute(setSingleUserQuery);
+23.             System.out.println("Database switched to SINGLE_USER mode.");
+24.             statement.execute(restoreQuery);
+25.             System.out.println("Database restored successfully.");
+26.             statement.execute(setMultiUserQuery);
+27.             System.out.println("Database switched to MULTI_USER mode.");
+28. 
+29.         } catch (SQLException e) {
+30.             throw new RuntimeException("Error restoring database", e);
+31.         }
+32.     }
 
