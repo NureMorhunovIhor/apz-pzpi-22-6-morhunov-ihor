@@ -1,1 +1,355 @@
+Міністерство освіти і науки України
+Харківський національний  університет радіоелектроніки
+
+Кафедра програмної інженерії
+
+
+
+ЗВІТ
+з лабораторної роботи №3
+з дисципліни «Архітектура програмного забезпечення»
+
+
+Виконав:	Перевірив:
+ст. гр. ПЗПІ-22-6	ст. викл. каф. ПІ
+Моргунов І.С.	Сокорчук І.П.
+
+
+
+
+
+
+Харків 2025
+1 ІСТОРІЯ ЗМІН
+Таблиця 1 – Історія змін 
+№	Дата	Версія звіту	Опис змін та виправлень
+1	28.05.2025	0.1	Створено розділ «Історія змін»
+2	28.05.2025	0.1	Створено розділ «Завдання»
+3	28.05.2025	0.1	Створено розділ «Опис виконаної роботи»
+4	28.05.2025	0.1	Створено розділ «Висновки»
+5	28.05.2025	0.1	Доданий Додаток А
+6	28.05.2025	0.1	Доданий Додаток Б
+7	28.05.2025	0.1	Доданий Додаток В
+
+ 
+2 ЗАВДАННЯ
+1.	Необхідно розробити клієнтську / front-end частину програмної системи. 
+2.	Проаналізуйте завдання. 
+3.	Виконайте контрольні завдання. 
+4.	Відкрийте створений на попередній лабораторній роботі репозиторійGitHub.
+5.	Створіть у репозиторії директорію Task4 та текстовий файл з описом інженерних рішень у цій частині проєкту, як вказано у додатку З.
+6.	Зафіксуйте кожну внесену зміну командою git commit з відповідним коментарем та фіксуйте цією командою усі наступні зміни у проєкті. 
+7.	Створіть у директорії Task4 піддиректорію для програмного коду, як вказано у додатку З. 
+8.	Створіть програмний код, завантажте його у створену піддиректорію, зафіксуйте внесені у репозиторій змін. 
+9.	Виконайте функціональне тестування створеного програмного коду та створіть відеозапис цього тестування тривалістю7..10 хвилин з усними поясненнями процесу тестування.
+10.	Завантажте створений відеозапис тестування YouTube канал для вашого облікового запису в домені @nure.ua.
+11.	Створіть для завантаженого запису його хронологічний опис. Оформіть звіт у форматі pdf та завантажте його на навчальну платформу https://dl.nure.ua/ 
+12.	У коментарях до завантаженого звіту вкажіть посилання на відеозапис тестування у вашому каналі YouTube. 
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+Клієнтська або front-end частина програмного забезпечення реалізована мовою JavaScript з використанням фреймворку ReactJS. Для оформлення інтерфейсу в стилі Material Design застосовується бібліотека React-MaterialUI. Управління станом вебдодатку здійснюється за допомогою Zustand, а маршрутизація між сторінками на основі URL реалізована через react-router-dom. Вебзастосунок отримує дані з сервера, включаючи інформацію про користувацькі пристрої, їхні вимірювання, прогнози погоди, а також інші системні дані (такі як користувачі, міста тощо) для адміністраторів. Система автентифікації побудована на основі JWT-токенів, які перевіряються на сервері при кожному запиті.
+
+На рисунку Б.1 у додатку Б наведена UML діаграма прецедентів.
+На рисунку Б.2 у додатку Б наведені діаграма компонентів.
+На рисунку Б.3 у додатку Б наведена діаграма діяльності.
+На рисунку Б.4 у додатку Б наведена діаграма станів.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4 ВИСНОВКИ
+Під час виконання лабораторної роботи було розроблено серверну частину програмної системи.
+ 
+ДОДАТОК А
+Відеозапис та хронологічний опис
+
+Відеозапис доповіді на YouTube: https://www.youtube.com/watch?v=wuInV8OENbQ
+Хронологічний опис відеозапису:
+0:30 - Тестування регістрації користувача 
+1:33 - Тестування роботи з даними
+4:37 - Тестування оплати полісів 
+6:10 - Тестування функцій адміністратора 
+7:10 - Тестування функцій адміністратора бізнес-логіки 
+9:20 - Тестування функцій адміністратора баз даних
+10:10 – Тестування функцій глобального адміністратора 
+
+Посилання на Github: 
+https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/tree/main/Lab3 
+
+ДОДАТОК Б
+Графічні матеріали
+ 
+Рисунок Б.1 – UML діаграма прецедентів
+ 
+
+Рисунок Б.2 – Діаграма компонентів
+ 
+Рисунок Б.3 – Діаграма діяльності
+
+
+ 
+Рисунок Б.4 – Діаграма станів
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ДОДАТОК В
+Програмний код
+
+В.1 Математична обробка ціни полісу
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/blob/main/Lab3/apz-pzpi-22-6-morhunov-ihor-lab3/src/pages/PoliciesPage.tsx 
+1. import {useEffect, useState} from 'react';
+2. import {Autocomplete, Button, TableCell, TextField} from '@mui/material';
+3. import type {Car, Policy} from "../types.ts";
+4. import ListPage, {API_HOST} from "./ListPage.tsx";
+5. import {useNavigate} from "react-router";
+6. import NavDrawer from "./NavDrawer.tsx";
+7. 
+8. function PoliciesPage() {
+9.     const now = new Date();
+10.     const dateArrToStr = (dateArr: number[]) => {
+11.         return `${dateArr[0].toString().padStart(4, '0')}-${dateArr[1].toString().padStart(2, '0')}-${dateArr[2].toString().padStart(2, '0')}`;
+12.     }
+13. 
+14.     const token = localStorage.getItem('token');
+15.     const userId = localStorage.getItem('userId');
+16.     const [cars, setCars] = useState<Car[]>([]);
+17.     const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+18.     const navigate = useNavigate();
+19. 
+20.     const fetchCars = async () => {
+21.         try {
+22.             const response = await fetch(`http://127.0.0.1:8081/api/cars/user/${userId}`, {
+23.                 headers: {'Authorization': `Bearer ${token}`},
+24.             });
+25.             if (response.ok) {
+26.                 const data = await response.json();
+27.                 setCars(data);
+28.             } else {
+29.                 console.error('Failed to fetch car types');
+30.             }
+31.         } catch (error) {
+32.             console.error('Error fetching car types:', error);
+33.         }
+34.     };
+35. 
+36.     useEffect(() => {
+37.         fetchCars();
+38.     }, []);
+39. 
+40.     const payPolicy = async (policy: Policy) => {
+41.         try {
+42.             const response = await fetch(`http://127.0.0.1:8081/api/payments/pay?total=${policy.price}&currency=USD&description=PolicyPayment&policyId=${policy.id}`, {
+43.                 method: "POST",
+44.                 headers: {'Authorization': `Bearer ${token}`},
+45.             });
+46.             if (response.ok) {
+47.                 const paymentUrl = await response.text();
+48.                 window.open(paymentUrl, '_blank')?.focus();
+49.                 navigate("/payments");
+50.             } else {
+51.                 console.error('Failed to create payment');
+52.             }
+53.         } catch (error) {
+54.             console.error('Error creating payment:', error);
+55.         }
+56.     };
+57. 
+58.     return (
+59.         <>
+60.             <NavDrawer/>
+61.             <ListPage
+62.                 name="policy"
+63.                 apiPath="api/policies"
+64.                 getFetchUrl={(userId) => `${API_HOST}/api/policies/user/${userId}`}
+65.                 allowCreate={true}
+66.                 allowUpdate={true}
+67.                 allowDelete={true}
+68.                 emptyObj={{
+69.                     id: 0,
+70.                     startDate: dateArrToStr([now.getFullYear(), now.getMonth()+1, now.getDate()]),
+71.                     endDate: dateArrToStr([now.getFullYear(), now.getMonth()+1, now.getDate()]),
+72.                     status: 'pending',
+73.                     price: 0,
+74.                     carId: 0,
+75.                 }}
+76.                 renderTableHead={() => {
+77.                     return (
+78.                         <>
+79.                             <TableCell>Start Date</TableCell>
+80.                             <TableCell>End Date</TableCell>
+81.                             <TableCell>Status</TableCell>
+82.                             <TableCell>Price</TableCell>
+83.                             <TableCell>Car ID</TableCell>
+84.                             <TableCell>Payment</TableCell>
+85.                         </>
+86.                     );
+87.                 }}
+88.                 renderTableRow={(obj: Policy) => {
+89.                     return (
+90.                         <>
+91.                             <TableCell>{typeof obj.startDate === "string" ? obj.startDate : dateArrToStr(obj.startDate)}</TableCell>
+92.                             <TableCell>{typeof obj.endDate === "string" ? obj.endDate : dateArrToStr(obj.endDate)}</TableCell>
+93.                             <TableCell>{obj.status}</TableCell>
+94.                             <TableCell>{obj.price}</TableCell>
+95.                             <TableCell>{obj.carId}</TableCell>
+96.                             <TableCell>
+97.                                 <Button variant="contained" onClick={() => {
+98.                                     payPolicy(obj);
+99.                                 }}>Pay</Button>
+100.                             </TableCell>
+101.                         </>
+102.                     );
+103.                 }}
+104.                 renderUpdateFields={(newObj: Policy, setNewObj) => {
+105.                     return (
+106.                         <>
+107.                             <TextField label="Start Date" value={typeof newObj.startDate === "string" ? newObj.startDate : dateArrToStr(newObj.startDate)} onChange={(e) => setNewObj({ ...newObj, startDate: e.target.value })} />
+108.                             <TextField label="End Date" value={typeof newObj.endDate === "string" ? newObj.endDate : dateArrToStr(newObj.endDate)} onChange={(e) => setNewObj({ ...newObj, endDate: e.target.value })} />
+109.                             <Autocomplete
+110.                                 options={cars}
+111.                                 getOptionLabel={(option) => option.licensePlate || ''}
+112.                                 value={selectedCar}
+113.                                 onChange={(_, newValue) => {
+114.                                     (newValue !== null) && setNewObj({...newObj, carId: newValue.id});
+115.                                     setSelectedCar(newValue);
+116.                                 }}
+117.                                 renderInput={(params) => <TextField {...params} label="Car" />}
+118.                             />
+119.                         </>
+120.                     );
+121.                 }}
+122.             />
+123.         </>
+124.     );
+125. }
+126. 
+127. export default PoliciesPage; 
+
+В.2 Адміністрування бізнес-логіки системи
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunov-ihor/blob/main/Lab3/apz-pzpi-22-6-morhunov-ihor-lab3/src/pages/RulesPage.tsx 
+1. import {TableCell, TextField} from '@mui/material';
+2. import type {Rule} from "../types.ts";
+3. import ListPage from "./ListPage.tsx";
+4. import NavDrawer from "./NavDrawer.tsx";
+5. 
+6. 
+7. function RulesPage() {
+8.     return (
+9.         <>
+10.             <NavDrawer/>
+11.             <ListPage
+12.                 name="Rule"
+13.                 apiPath="api/business-logic/rules"
+14.                 allowCreate={true}
+15.                 allowUpdate={true}
+16.                 allowDelete={true}
+17.                 emptyObj={{
+18.                     id: 0,
+19.                     carType: "",
+20.                     formula: "",
+21.                     technicalFactorThreshold: 0,
+22.                     technicalFactorMultiplier: 0,
+23.                     basePrice: 0,
+24.                 }}
+25.                 renderTableHead={() => {
+26.                     return (
+27.                         <>
+28.                             <TableCell>Car Type</TableCell>
+29.                             <TableCell>Formula</TableCell>
+30.                             <TableCell>Technical Factor Threshold</TableCell>
+31.                             <TableCell>Technical Factor Multiplier</TableCell>
+32.                             <TableCell>Base Price</TableCell>
+33.                         </>
+34.                     );
+35.                 }}
+36.                 renderTableRow={(obj: Rule) => {
+37.                     return (
+38.                         <>
+39.                             <TableCell>{obj.carType}</TableCell>
+40.                             <TableCell>{obj.formula}</TableCell>
+41.                             <TableCell>{obj.technicalFactorThreshold}</TableCell>
+42.                             <TableCell>{obj.technicalFactorMultiplier}</TableCell>
+43.                             <TableCell>{obj.basePrice}</TableCell>
+44.                         </>
+45.                     );
+46.                 }}
+47.                 renderUpdateFields={(newObj: Rule, setNewObj) => {
+48.                     return (
+49.                         <>
+50.                             <TextField
+51.                                 label="Car Type"
+52.                                 value={newObj.carType}
+53.                                 onChange={(e) =>
+54.                                     setNewObj({ ...newObj, carType: e.target.value })
+55.                                 }
+56.                             />
+57.                             <TextField
+58.                                 label="Formula"
+59.                                 value={newObj.formula}
+60.                                 onChange={(e) =>
+61.                                     setNewObj({ ...newObj, formula: e.target.value })
+62.                                 }
+63.                             />
+64.                             <TextField
+65.                                 label="Technical Factor Threshold"
+66.                                 type="number"
+67.                                 inputProps={{ step: "any" }}
+68.                                 value={newObj.technicalFactorThreshold}
+69.                                 onChange={(e) =>
+70.                                     setNewObj({ ...newObj, technicalFactorThreshold: Number(e.target.value) })
+71.                                 }
+72.                             />
+73.                             <TextField
+74.                                 label="Technical Factor Multiplier"
+75.                                 type="number"
+76.                                 inputProps={{ step: "any" }}
+77.                                 value={newObj.technicalFactorMultiplier}
+78.                                 onChange={(e) =>
+79.                                     setNewObj({ ...newObj, technicalFactorMultiplier: Number(e.target.value) })
+80.                                 }
+81.                             />
+82.                             {newObj.id === 0 && (
+83.                                 <TextField
+84.                                     label="Base Price"
+85.                                     type="number"
+86.                                     inputProps={{ step: "any" }}
+87.                                     value={newObj.basePrice}
+88.                                     onChange={(e) =>
+89.                                         setNewObj({ ...newObj, basePrice: Number(e.target.value) })
+90.                                     }
+91.                                 />
+92.                             )}
+93.                         </>
+94.                     );
+95.                 }}
+96. 
+97.             />
+98.         </>
+99.     );
+100. }
+101. 
+102. export default RulesPage;
 
