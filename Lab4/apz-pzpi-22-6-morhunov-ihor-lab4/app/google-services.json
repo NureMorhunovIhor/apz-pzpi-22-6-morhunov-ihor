@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "684096816667",
+    "project_id": "autoinsure-1139b",
+    "storage_bucket": "autoinsure-1139b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684096816667:android:81211db4f44d9387b69abe",
+        "android_client_info": {
+          "package_name": "org.nure.apz.autoinsure"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKZ4sdMcdO8kVW_EN_U-QE5lNaAUNg49k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

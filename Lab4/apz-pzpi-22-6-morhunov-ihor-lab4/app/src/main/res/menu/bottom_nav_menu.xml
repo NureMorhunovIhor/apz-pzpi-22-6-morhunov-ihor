@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_cars"
+        android:icon="@drawable/baseline_directions_car_24"
+        android:title="@string/cars" />
+
+    <item
+        android:id="@+id/nav_policies"
+        android:icon="@drawable/baseline_shield_24"
+        android:title="@string/policies" />
+
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/account" />
+</menu>
