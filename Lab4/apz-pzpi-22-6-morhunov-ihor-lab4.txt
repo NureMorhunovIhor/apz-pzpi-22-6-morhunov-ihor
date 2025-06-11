@@ -1,1 +1,344 @@
+Міністерство освіти і науки України
+Харківський національний університет радіоелектроніки
+Кафедра програмної інженерії
+ЗВІТ
+з лабораторної роботи №4
+з дисципліни «Архітектура програмного забезпечення»
+Виконав: Перевірив:
+ст. гр. ПЗПІ-22-6 ст. викл. каф. ПІ
+Моргунов І.С. Сокорчук І.П.
+Харків 2025
 
+
+1 ІСТОРІЯ ЗМІН
+Таблиця 1 – Історія змін
+№ Дата Версія звіту Опис змін та виправлень
+1 28.05.2025 0.1 Створено розділ «Історія змін»
+2 28.05.2025 0.1 Створено розділ «Завдання»
+3 28.05.2025 0.1 Створено розділ «Опис виконаної роботи»
+4 28.05.2025 0.1 Створено розділ «Висновки»
+5 28.05.2025 0.1 Доданий Додаток А
+6 28.05.2025 0.1 Доданий Додаток Б
+7 28.05.2025 0.1 Доданий Додаток В
+
+
+2 ЗАВДАННЯ
+1. Необхідно розробити мобільний програмний застосунок для будь-якої
+поширеної на сьогодні мобільної платформи.
+2. Проаналізуйте завдання.
+3. Виконайте контрольні завдання.
+4. Відкрийте створений на попередній лабораторній роботі репозиторій
+GitHub.
+5. Створіть у репозиторії директорію Task5 та текстовий файл з описом
+інженерних рішень у цій частині проєкту, як вказано у додатку З.
+6. Зафіксуйте кожну внесену зміну командою git commit з відповідним
+коментарем та фіксуйте цією командою усі наступні зміни у проєкті.
+7. Створіть у директорії Task5 піддиректорію для програмного коду, як
+вказано у додатку З
+8. Створіть програмний код, завантажте його у створену піддиректорію,
+зафіксуйте внесені у репозиторій зміни
+9. Виконайте функціональне тестування створеного програмного коду
+та створіть відеозапис цього тестування тривалістю 7..10 хвилин з
+усними поясненнями процесу тестування
+10.Завантажте створений відеозапис тестування YouTube канал для
+вашого облікового запису в домені @nure.ua
+11.Створіть для завантаженого запису його хронологічний опис.
+12.Оформіть звіт у форматі pdf та завантажте його на навчальну
+платформу https://dl.nure.ua/
+13.У коментарях до завантаженого звіту вкажіть посилання на відеозапис
+тестування у вашому каналі YouTube.
+
+
+3 ОПИС ВИКОНАНОЇ РОБОТИ
+Мобільний програмний застосунок для платформи Android
+розроблений мовою програмування Kotlin із використанням фреймворку
+Jetpack Compose. Для виконання API-запитів застосовано бібліотеку
+Retrofit2, а для обробки JSON — Jackson. Програма отримує з серверу дані
+про користувацькі пристрої, їхні вимірювання та прогнози погоди.
+Автентифікація реалізована за допомогою JWT-токенів, які перевіряються
+сервером під час кожного запиту.
+
+На рисунку Б.1 у додатку Б наведена UML діаграма прецедентів.
+На рисунку Б.2 у додатку Б наведені діаграма компонентів.
+На рисунку Б.3 у додатку Б наведена діаграма діяльності.
+На рисунку Б.4 у додатку Б наведена діаграма станів.
+
+
+4 ВИСНОВКИ
+Під час виконання лабораторної роботи було розроблено мобільну
+частину програмної системи.
+
+
+ДОДАТОК А
+Відеозапис та хронологічний опис
+Відеозапис доповіді на YouTube: https://www.youtube.com/watch?v=F3bVgTBkHpw
+Хронологічний опис відеозапису:
+0:13 - Тестування регістрації користувача
+0:52 - Тестування авторизації користувача
+1:10 - Тестування роботи з даними, редагування сенсорів
+2:13 - Тестування оплати полісів
+
+Посилання на Github:
+https://github.com/NureMorhunovIhor/apz-pzpi-22-6-morhunovihor/tree/main/Lab4
+
+ДОДАТОК Б
+Графічні матеріали
+Рисунок Б.1 – UML діаграма прецедентів
+
+Рисунок Б.2 – Діаграма компонентів
+
+Рисунок Б.3 – Діаграма діяльності
+
+Рисунок Б.4 – Діаграма станів
+
+ДОДАТОК В
+Програмний код
+В.1 Фрагмент коду пов’язаний з бізнес-логікою програми:
+
+GitHub репозиторій: https://github.com/NureMorhunovIhor/apz-pzpi-22-6-
+morhunov-ihor/blob/main/Lab4/apz-pzpi-22-6-morhunov-ihorlab4/app/src/main/java/org/nure/apz/autoinsure/activities/SensorActivity.java
+
+1. package org.nure.apz.autoinsure.activities;
+2.
+3. import static
+org.nure.apz.autoinsure.utils.AndroidUtils.getTokenOr
+Finish;
+4.
+5. import android.content.DialogInterface;
+6. import android.os.Bundle;
+7. import android.widget.TextView;
+8. import android.widget.Toast;
+9. import android.app.AlertDialog;
+10. import android.view.LayoutInflater;
+11. import android.view.View;
+12. import android.widget.Button;
+13. import android.widget.EditText;
+14.
+15. import androidx.activity.EdgeToEdge;
+16. import androidx.annotation.NonNull;
+17. import androidx.appcompat.app.AppCompatActivity;
+18. import
+androidx.recyclerview.widget.LinearLayoutManager;
+19. import androidx.recyclerview.widget.RecyclerView;
+12
+20.
+21. import org.nure.apz.autoinsure.R;
+22. import
+org.nure.apz.autoinsure.adapters.MeasurementsAdapter;
+23. import org.nure.apz.autoinsure.api.ApiClient;
+24. import
+org.nure.apz.autoinsure.api.services.MeasurementServi
+ce;
+25. import
+org.nure.apz.autoinsure.api.services.SensorService;
+26. import
+org.nure.apz.autoinsure.entities.Measurement;
+27. import org.nure.apz.autoinsure.entities.Sensor;
+28.
+29. import java.time.format.DateTimeFormatter;
+30. import java.time.format.FormatStyle;
+31. import java.util.List;
+32.
+33. public class SensorActivity extends
+AppCompatActivity {
+34. private static final DateTimeFormatter DATE_FMT
+=
+DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+;
+35.
+36. private TextView tvSensorType, tvCurrentState,
+tvLastUpdate;
+37. private Button btnEditSensor, btnDeleteSensor;
+38. private Sensor currentSensor;
+39. private SensorService sensorService;
+40.
+13
+41. @Override
+42. protected void onCreate(Bundle
+savedInstanceState) {
+43. super.onCreate(savedInstanceState);
+44. EdgeToEdge.enable(this);
+45. setContentView(R.layout.activity_sensor);
+46.
+47. String token = getTokenOrFinish(this);
+48. if (token == null) return;
+49.
+50. int sensorId =
+getIntent().getIntExtra("sensorId", -1);
+51. if (sensorId == -1) {
+52. finish();
+53. return;
+54. }
+55.
+56. tvSensorType =
+findViewById(R.id.tvSensorType);
+57. tvCurrentState =
+findViewById(R.id.tvCurrentState);
+58. tvLastUpdate =
+findViewById(R.id.tvLastUpdate);
+59. btnEditSensor =
+findViewById(R.id.btnEditSensor);
+60. btnDeleteSensor =
+findViewById(R.id.btnDeleteSensor);
+61. RecyclerView rvSensors =
+findViewById(R.id.rvMeasurements);
+62. rvSensors.setLayoutManager(new
+LinearLayoutManager(this));
+14
+63. MeasurementsAdapter adapter = new
+MeasurementsAdapter(this);
+64. rvSensors.setAdapter(adapter);
+65.
+66. sensorService =
+ApiClient.getAuthClient(token).create(SensorService.c
+lass);
+67. MeasurementService measurementService =
+ApiClient.getAuthClient(token).create(MeasurementServ
+ice.class);
+68.
+69.
+sensorService.getSensor(sensorId).enqueue(new
+ApiClient.CustomCallback<>() {
+70. @Override
+71. public void onResponse(@NonNull Sensor
+response) {
+72. currentSensor = response;
+73. updateSensorUI(response);
+74.
+75.
+measurementService.getSensorMeasurements(sensorId).en
+queue(new ApiClient.CustomCallback<>() {
+76. @Override
+77. public void onResponse(@NonNull
+List<Measurement> response) {
+78.
+adapter.setMeasurements(response);
+79. }
+80.
+81. @Override
+15
+82. public void onError(@NonNull
+String error, int code) {
+83.
+Toast.makeText(SensorActivity.this, "Failed to fetch
+measurements: " + error, Toast.LENGTH_SHORT).show();
+84. }
+85. });
+86. }
+87.
+88. @Override
+89. public void onError(@NonNull String
+error, int code) {
+90. Toast.makeText(SensorActivity.this,
+"Failed to fetch sensor: " + error,
+Toast.LENGTH_SHORT).show();
+91. }
+92. });
+93.
+94. btnEditSensor.setOnClickListener(v ->
+showEditDialog(token, sensorId));
+95. btnDeleteSensor.setOnClickListener(v ->
+showDeleteDialog(token, sensorId));
+96. }
+97.
+98. private void updateSensorUI(Sensor sensor) {
+99.
+tvSensorType.setText(sensor.getSensorType());
+100.
+tvCurrentState.setText(sensor.getSensorType());
+16
+101.
+tvLastUpdate.setText(sensor.getLastUpdate().format(DA
+TE_FMT));
+102. }
+103. private void showEditDialog(String token, int
+sensorId) {
+104. View dialogView =
+LayoutInflater.from(this).inflate(R.layout.dialog_edi
+t_sensor, null);
+105. EditText etSensorType =
+dialogView.findViewById(R.id.etSensorType);
+106.
+107.
+etSensorType.setText(currentSensor.getSensorType());
+108.
+109. new AlertDialog.Builder(this)
+110. .setTitle("Редагувати сенсор")
+111. .setView(dialogView)
+112. .setPositiveButton("Зберегти",
+(dialog, which) -> {
+113. String newType =
+etSensorType.getText().toString().trim();
+114. if (newType.isEmpty()) {
+115. Toast.makeText(this, "Тип
+сенсора не може бути порожнім",
+Toast.LENGTH_SHORT).show();
+116. return;
+117. }
+118.
+119.
+currentSensor.setSensorType(newType);
+17
+120.
+121.
+sensorService.updateSensor(sensorId,
+currentSensor).enqueue(new
+ApiClient.CustomCallback<Sensor>() {
+122. @Override
+123. public void onResponse(@NonNull
+Sensor response) {
+124.
+Toast.makeText(SensorActivity.this, "Сенсор оновлено",
+Toast.LENGTH_SHORT).show();
+125. updateSensorUI(response);
+126. }
+127.
+128. @Override
+129. public void onError(@NonNull
+String error, int code) {
+130.
+Toast.makeText(SensorActivity.this, "Помилка
+оновлення: " + error, Toast.LENGTH_SHORT).show();
+131. }
+132. });
+133. })
+134. .setNegativeButton("Скасувати",
+null)
+135. .show();
+136. }
+137.
+138. private void showDeleteDialog(String token,
+int sensorId) {
+139. new AlertDialog.Builder(this)
+18
+140. .setTitle("Видалити сенсор")
+141. .setMessage("Ви впевнені, що хочете
+видалити цей сенсор?")
+142. .setPositiveButton("Так", (dialog,
+which) -> {
+143.
+sensorService.deleteSensor(sensorId).enqueue(new
+ApiClient.CustomCallback<>() {
+144. @Override
+145. public void onResponse(Void
+unused) {
+146.
+Toast.makeText(SensorActivity.this, "Сенсор видалено",
+Toast.LENGTH_SHORT).show();
+147. finish();
+148. }
+149.
+150. @Override
+151. public void onError(@NonNull
+String error, int code) {
+152.
+Toast.makeText(SensorActivity.this, "Помилка
+видалення: " + error, Toast.LENGTH_SHORT).show();
+153. }
+154. });
+155. })
+156. .setNegativeButton("Скасувати",
+null)
+157. .show();
+158. }
+159. }
